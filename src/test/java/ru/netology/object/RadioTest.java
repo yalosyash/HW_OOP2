@@ -5,24 +5,7 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
-    void setNumberRadio() {
-        Radio radio = new Radio();
-        int expect = 0;
-        int actual = radio.getCurrentRadioStation();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
-    void setNewNumberRadio() {
-        Radio radio = new Radio();
-        radio.setRadioStation(5);
-        int expect = 5;
-        int actual = radio.getCurrentRadioStation();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
-    void setMaxNumberRadio() {
+    void setNumberRadioIfNotSetQuantity() {
         Radio radio = new Radio();
         radio.setRadioStation(9);
         int expect = 9;
@@ -31,9 +14,35 @@ public class RadioTest {
     }
 
     @Test
+    void setNumberRadio() {
+        Radio radio = new Radio(50);
+        int expect = 0;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    void setNewNumberRadio() {
+        Radio radio = new Radio(50);
+        radio.setRadioStation(25);
+        int expect = 25;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    void setMaxNumberRadio() {
+        Radio radio = new Radio(50);
+        radio.setRadioStation(49);
+        int expect = 49;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
     void setOverMaxNumberRadio() {
-        Radio radio = new Radio();
-        radio.setRadioStation(10);
+        Radio radio = new Radio(50);
+        radio.setRadioStation(50);
         int expect = 0;
         int actual = radio.getCurrentRadioStation();
         Assertions.assertEquals(expect, actual);
@@ -58,16 +67,6 @@ public class RadioTest {
     }
 
     @Test
-    void nextNumberRadioIfMax() {
-        Radio radio = new Radio();
-        radio.setRadioStation(9);
-        radio.next();
-        int expect = 0;
-        int actual = radio.getCurrentRadioStation();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
     void nextNumberRadio() {
         Radio radio = new Radio();
         radio.setRadioStation(5);
@@ -78,11 +77,11 @@ public class RadioTest {
     }
 
     @Test
-    void prevNumberRadioIfMin() {
-        Radio radio = new Radio();
-        radio.setRadioStation(0);
-        radio.prev();
-        int expect = 9;
+    void nextNumberRadioIfMax() {
+        Radio radio = new Radio(50);
+        radio.setRadioStation(49);
+        radio.next();
+        int expect = 0;
         int actual = radio.getCurrentRadioStation();
         Assertions.assertEquals(expect, actual);
     }
@@ -93,6 +92,16 @@ public class RadioTest {
         radio.setRadioStation(5);
         radio.prev();
         int expect = 4;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    void prevNumberRadioIfMin() {
+        Radio radio = new Radio(50);
+        radio.setRadioStation(0);
+        radio.prev();
+        int expect = 49;
         int actual = radio.getCurrentRadioStation();
         Assertions.assertEquals(expect, actual);
     }
